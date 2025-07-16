@@ -20,6 +20,11 @@ J'ai choisi de séparer le dataset en deux parties : test et train.
 
 30% de test et 70% pour l'entrainement. j'ai pris ces pourcentages car ce sont les plus recommandés pour faire un entrainement avec autant de données: cela permet d'avoir suffisemment de données pour bien entrainer le model et aussi avec suffisamment d'exemple de test.
 
+## Résultat
+
+Score : 80% de bonnes réponses
+outil d'analyse : sklearn.metrics : accuracy_score
+
 ## Amélioration
 
 Dans le fichier 'scripts/model_training', on peut améliorer l'entrainement du model en découpant le dataset en n morceaux (folds) avec la fonction 'StratifiedKFold', en contrôlant les paramètres pour éliminer certains biais dans chacun des dataset.
