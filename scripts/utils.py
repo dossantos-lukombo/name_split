@@ -3,6 +3,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 
 def open_data(path_file:str):
@@ -65,14 +66,18 @@ def train_dateset(X_train,Y_train):
         
     return pipeline.fit(X_train, Y_train.values.ravel())
     
-def test_model(model,X_test):
+def test_model(model,X_test,y_test):
 
     print("X_test: \n",X_test)
     predicted = model.predict(X_test)
     
     model_ans = []
     
-    print("prediction : \n",predicted)
+    # print("prediction : \n",predicted)
+    
+    print("score accuracy : \n",
+          round(model_accuracy(y_test,predicted),3)
+          )
     
     for pred_value in predicted:
         if pred_value==1:
@@ -89,5 +94,8 @@ def test_model(model,X_test):
     })
     
     
+    
     return df_model_ans
 
+def model_accuracy(y_test,pred):
+    return accuracy_score(y_test,pred)

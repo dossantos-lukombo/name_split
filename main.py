@@ -15,5 +15,5 @@ if __name__ == "__main__":
     model=train_dateset(data_splitted["X_train"],data_splitted["y_train"])
     # model=train_dateset(df_to_split[['name_value']],df_to_split[['gender']])
     print("trained !")
-    test_model(model,data_splitted['X_test']).to_csv("./data/model_resultat.csv")
+    test_model(model,data_splitted['X_test'],data_splitted['y_test']).to_csv("./data/model_resultat.csv")
     # test_model(model,df_to_split).to_csv("./data/model_resultat.csv")
