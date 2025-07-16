@@ -3,7 +3,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score,precision_score
+
+from scripts.model_training import training_cv
 
 
 def open_data(path_file:str):
@@ -36,12 +38,14 @@ def split_dataset(df:pd.DataFrame)->dict:
         df["name"],
         df["gender"],
         test_size=0.3,
+        random_state=43,
     )
     
     print(train_test_split(
         df["name"],
         df["gender"],
         test_size=0.3,
+        random_state=43,
     ))
     
     return {
@@ -57,10 +61,13 @@ def train_dateset(X_train,Y_train):
     print("X_train : \n",X_train)
     print("y_train : \n",Y_train)
     
+
+    
     pipeline = Pipeline(
         [
             ('tfidf', TfidfVectorizer(analyzer='char', ngram_range=(2,4))),
-            ('clf',   LogisticRegression(max_iter=500, random_state=42))
+            ('clf',   LogisticRegression(random_state=45))
+
         ]
     )
         
@@ -76,8 +83,18 @@ def test_model(model,X_test,y_test):
     # print("prediction : \n",predicted)
     
     print("score accuracy : \n",
-          round(model_accuracy(y_test,predicted),3)
-          )
+          round(
+              model_accuracy(y_test,predicted)["accuracy"],
+              3
+            )*100
+        )
+    
+    print("precision score : \n",
+          round(
+              model_accuracy(y_test,predicted)["precision"],
+              3
+          )*100
+        )
     
     for pred_value in predicted:
         if pred_value==1:
@@ -98,4 +115,7 @@ def test_model(model,X_test,y_test):
     return df_model_ans
 
 def model_accuracy(y_test,pred):
-    return accuracy_score(y_test,pred)
+    return {
+        "accuracy":accuracy_score(y_test,pred),
+        "precision": precision_score(y_test,pred),
+    }

@@ -22,8 +22,9 @@ J'ai choisi de séparer le dataset en deux parties : test et train.
 
 ## Résultat
 
-Score : 80% de bonnes réponses
-outil d'analyse : sklearn.metrics : accuracy_score
+Score global : 80% de bonnes réponses
+Précision du model : 79%
+outil d'analyse : sklearn.metrics : accuracy_score, sklearn.metrics : precision_score
 
 ## Amélioration
 
